@@ -4,6 +4,26 @@ var daysOfWeek = new Array(7);
 daysOfWeek = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 var monthNames = new Array(12);
 monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+var template = 
+"<li class = 'listItem'>\
+		<a class = 'hyperlink' href='##eventurl##' target = '_blank'>\
+			<div class = 'itemDiv'>\
+				<div class = 'imgDiv'>\
+					<img src = '##imageurl##' class = 'imageclass'/>\
+				</div>\
+				<div class = 'titleDiv'>\
+					<span class = 'titlespan'>\
+						##eventtitle##\
+					</span>\
+					<br/>\
+					<br/>\
+					<span class = 'date'>\
+						##date##\
+					</span>\
+				</div>\
+			</div>\
+		</a>\
+	</li>";
 var opts = {
   lines: 7 // The number of lines to draw
 , length: 6 // The length of each line
@@ -68,7 +88,8 @@ function populateEvents() {
 		}
 	})
 		.done( function( data ) {
-			spinner.stop();			
+			spinner.stop();	
+			var divContent = "<ul class='eventList'>";		
 			$.each(data.events, function( key, event ){
 				var eventName = event.name.html;
 				var startDate = new Date(event.start.utc);
@@ -79,12 +100,19 @@ function populateEvents() {
 				}
 				var eventURL = event.url;
 				startDate = formatDate(startDate);
-				var divContent = "<div class='eventList'>"+eventName + startDate + "</div><br/>";
-				$("#contentDiv").append(divContent);	
+				var listItemTemplate = template;
+				listItemTemplate = listItemTemplate.replace('##eventurl##', eventURL);
+				listItemTemplate = listItemTemplate = listItemTemplate.replace('##imageurl##', logoURL);
+				listItemTemplate = listItemTemplate.replace('##eventtitle##',eventName);
+				listItemTemplate = listItemTemplate.replace('##date##',startDate);
+				console.log(listItemTemplate);
+				divContent = divContent + listItemTemplate;
+				//divContent = divContent + "<li class='listItem'><a class='hyperlink' href='"+eventURL+"' target = '_blank'>";
+				//divContent = divContent + "<div class='itemDiv'>"+ eventName + startDate + "</div></a></li><br/>";	
 			} );
-			
+				divContent = divContent + "</ul>";
+				$("#contentDiv").append(divContent);
 		});
-
 }
 
 function formatDate( date ){
