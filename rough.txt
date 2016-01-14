@@ -1,0 +1,72 @@
+	$.get(url,function( data ){
+		var divContent = "<ul class='eventList'>";
+		$.each(data.events, function( key, event ){
+			var eventName = event.name.html;
+			var startTime = event.start.utc;
+			var timeZone = event.start.timezone;
+			var logoURL = event.logo_id;
+			divContent = divContent + "<li class='listItem'>"+eventName+"</li>";
+
+
+		} );
+		divContent = divContent + "</ul>";
+		$("#contentDiv").append(divContent);
+	});
+
+
+
+
+<img src = "titleImage.jpg" width = "100%" height = "80px"/>
+
+		<div style = "background-color: FA5705; height: 50px; padding: 10px; width: 100%;">
+			<h1 style = "color: white; font-family: arial;"> Eventbrite </h1>
+		</div>
+
+
+
+
+
+
+
+				.done( function( data ) {
+			spinner.stop();
+			var divContent = "<ul class='eventList'>";
+			$.each(data.events, function( key, event ){
+				var eventName = event.name.html;
+				var startTime = event.start.utc;
+				var timeZone = event.start.timezone;
+				var logoURL = event.logo_id;
+				divContent = divContent + "<li class='listItem'>"+eventName+"</li>";
+			} );
+			divContent = divContent + "</ul>";
+			$("#contentDiv").append(divContent);				
+		});
+
+
+					.listItem{
+				width: 100%;
+				height: 80px;
+				border-color:red;
+			}
+			.eventList{
+				list-style-type: none;
+			}
+
+
+			li
+			a
+			div
+				div
+				div
+
+
+
+
+
+			width: 85px;
+    height: 85px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
