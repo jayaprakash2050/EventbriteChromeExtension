@@ -78,7 +78,23 @@ function populateEvents() {
 	var latitude = place.geometry.location.lat();
 	var longitude = place.geometry.location.lng();
 	var spinner = '';
-	var url = 'https://www.eventbriteapi.com/v3/events/search/?token='+evenBriteToken+'&location.latitude='+latitude+'&location.longitude='+longitude+'&location.within=10mi&popular=true';
+	var distanceSelected = 10;	
+	distanceSelected = $("#distance").val();
+	var url = 'https://www.eventbriteapi.com/v3/events/search/?token='+evenBriteToken+'&location.latitude='+latitude+'&location.longitude='+longitude+'&location.within='+distanceSelected+'mi&popular=true';
+	if ( $("#chkNextWeekend").prop("checked") ) {
+		var nextSat = calculateNextWeekend();
+		var nextSun = new Date();
+		nextSun.setDate(nextSat.getDate() + 1);
+		nextSun.setHours(23,59,59, 999);
+		nextSat = nextSat.toJSON();
+		nextSat = nextSat.substring(0,nextSat.lastIndexOf('.'))+'Z';
+		nextSun = nextSun.toJSON();
+		nextSun = nextSun.substring(0,nextSun.lastIndexOf('.'))+'Z';
+		alert(nextSat);
+		alert(nextSun);
+		url = url + '&start_date.range_start='+encodeURIComponent(nextSat)+'&start_date.range_end='+encodeURIComponent(nextSun);
+		alert(url);
+	}
 	$.ajax( { 
 		url: url,
 		beforeSend: function(xhr) {
@@ -105,13 +121,12 @@ function populateEvents() {
 				listItemTemplate = listItemTemplate = listItemTemplate.replace('##imageurl##', logoURL);
 				listItemTemplate = listItemTemplate.replace('##eventtitle##',eventName);
 				listItemTemplate = listItemTemplate.replace('##date##',startDate);
-				console.log(listItemTemplate);
 				divContent = divContent + listItemTemplate;
 				//divContent = divContent + "<li class='listItem'><a class='hyperlink' href='"+eventURL+"' target = '_blank'>";
 				//divContent = divContent + "<div class='itemDiv'>"+ eventName + startDate + "</div></a></li><br/>";	
 			} );
 				divContent = divContent + "</ul>";
-				$("#contentDiv").append(divContent);
+				$("#contentDiv").html(divContent);
 		});
 }
 
@@ -120,9 +135,18 @@ function formatDate( date ){
 	var day = date.getDay();
 	var timeHours = date.getHours();
 	var timeMinutes = date.getMinutes();
+	timeMinutes = timeMinutes == '0' ? '00' : timeMinutes;
 	var month = monthNames[date.getMonth()];
 	var am = timeHours >= 12 ? 'PM' : 'AM';
+	timeHours = timeHours > 12 ? timeHours-12 : timeHours;
 	day = daysOfWeek[day];
 	var result = day + ', ' + month + ' ' + d + ' ' + timeHours + ':' + timeMinutes + ' ' + am;
 	return result;  
+}
+
+function calculateNextWeekend(){
+	var date = new Date();
+	date.setDate(date.getDate() + (7 + 6 - date.getDay()) % 7);
+	date.setHours(00,00,00, 000);
+	return date;
 }

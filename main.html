@@ -71,6 +71,22 @@
 		<br/>
 		<br/>
 		<input type="text" id="location" placeholder="Enter your location" onFocus="geolocate()"></input>
+		<div id="distanceDiv">
+			<h2>
+				Show me the popular events that happen within 
+				<select id="distance">
+					<option value = "10">10</option>
+					<option value = "30">30</option>
+					<option value = "50">50</option>
+				</select>
+				 miles
+			</h2>
+		</div>
+		<div id="eventTypes">
+			<input type = "checkbox" id = "chkNextWeekend" value = "nextweekend">
+				Show me the events that happen only on next weekend
+			</input>
+		</div>
 		<div id="contentDiv">
 			<br/>
 		</div>
