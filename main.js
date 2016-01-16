@@ -72,6 +72,32 @@ function initAutoComplete() {
 	autocomplete.addListener('place_changed', populateEvents);
 }
 
+$(document).on("change", "input[id='chkNextWeekend']", function () {
+	var place = autocomplete.getPlace();
+	if( place != undefined && $("#location").val()) {
+		populateEvents();
+	}
+	else
+	{
+		alert("Enter Location and try");
+	}
+});
+
+$(document).on("change", "select[id='distance']", function () {
+	var place = autocomplete.getPlace();
+	if( place != undefined && $("#location").val()) {
+		populateEvents();
+	}
+	else
+	{
+		alert("Enter Location and try");
+	}
+});
+
+$(document).ready(function(){
+	document.getElementById("location").addEventListener("onFocus", geolocate);
+});
+
 
 function populateEvents() {
 	var place = autocomplete.getPlace();
@@ -90,10 +116,7 @@ function populateEvents() {
 		nextSat = nextSat.substring(0,nextSat.lastIndexOf('.'))+'Z';
 		nextSun = nextSun.toJSON();
 		nextSun = nextSun.substring(0,nextSun.lastIndexOf('.'))+'Z';
-		alert(nextSat);
-		alert(nextSun);
 		url = url + '&start_date.range_start='+encodeURIComponent(nextSat)+'&start_date.range_end='+encodeURIComponent(nextSun);
-		alert(url);
 	}
 	$.ajax( { 
 		url: url,
@@ -108,6 +131,9 @@ function populateEvents() {
 			var divContent = "<ul class='eventList'>";		
 			$.each(data.events, function( key, event ){
 				var eventName = event.name.html;
+				if (eventName.length > 110) {
+					eventName = eventName.substr(0,110);
+				}
 				var startDate = new Date(event.start.utc);
 				var timeZone = event.start.timezone;
 				var logoURL = '';
@@ -122,8 +148,6 @@ function populateEvents() {
 				listItemTemplate = listItemTemplate.replace('##eventtitle##',eventName);
 				listItemTemplate = listItemTemplate.replace('##date##',startDate);
 				divContent = divContent + listItemTemplate;
-				//divContent = divContent + "<li class='listItem'><a class='hyperlink' href='"+eventURL+"' target = '_blank'>";
-				//divContent = divContent + "<div class='itemDiv'>"+ eventName + startDate + "</div></a></li><br/>";	
 			} );
 				divContent = divContent + "</ul>";
 				$("#contentDiv").html(divContent);
@@ -146,7 +170,9 @@ function formatDate( date ){
 
 function calculateNextWeekend(){
 	var date = new Date();
-	date.setDate(date.getDate() + (7 + 6 - date.getDay()) % 7);
+	date.setDate((date.getDate() + (7 + 6 - date.getDay()) % 7) + 7);
 	date.setHours(00,00,00, 000);
 	return date;
 }
+
+
