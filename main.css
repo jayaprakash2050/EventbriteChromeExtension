@@ -39,7 +39,7 @@ body {
 	height: 100%;
 }
 .titleDiv{
-	font-size: 15px;
+	font-size: 14px;
 	margin-left: 5px;
 	margin-right: 5px;
 	padding: 7px 0px 0px 0px;
@@ -47,6 +47,9 @@ body {
 	float: left;
 	width: 300px;
 	
+}
+.date{
+	font-size: 12px;
 }
 .contentDiv{
 
