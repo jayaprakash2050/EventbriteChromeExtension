@@ -4,12 +4,16 @@ body {
 	background-color: E8ECED;
 	font-family: Arial,sans-serif;
 }
-.eventList{
+/**
+* #.# Events container.
+*
+*/
+.event-list{
 	list-style-type: none;
 	display: block;
 	margin: 0px 0px;
 }
-.listItem{
+.list-item{
 	cursor: pointer;
 	margin: 10px 0;
 	width: 100%;
@@ -18,7 +22,7 @@ body {
 	padding: 0px 0px 0px 0px;
 
 }
-.hyperLink{
+.hyperlink{
 	text-decoration: none;
 	color: black;
 }
@@ -26,7 +30,11 @@ body {
 	width: 85px;
 	height: 85px;
 }
-.imgDiv{
+/**
+* #.# Style for Logo container.
+*
+*/
+.img-div{
 	width: 90px;
 	height: 90px;
 	float: left;		
@@ -34,11 +42,15 @@ body {
 	margin-left: 5px;	
 	padding: 7px 0px 0px 0px;	
 }
-.itemDiv{
+.item-div{
 	width: 100%;
 	height: 100%;
 }
-.titleDiv{
+/**
+* #.# Style for displaying event details.
+*
+*/
+.title-div{
 	font-size: 14px;
 	margin-left: 5px;
 	margin-right: 5px;
@@ -51,15 +63,19 @@ body {
 .date{
 	font-size: 12px;
 }
-.contentDiv{
+.content-div{
 
 	opacity: 1;
 	margin-bottom: 15px;
 }
-.itemDiv:hover {
+.item-div:hover {
 	border-right: 2px solid rgb(242, 119, 32);
 	box-shadow: 0px 1px 6px silver;
 }
+/**
+* #.# Textbox style
+*
+*/
 #location {
 	width: 100%;
 	height: 33px;
@@ -75,13 +91,17 @@ body {
 	border-color: orange;
 	box-shadow: : 0px 0px 10px orange;
 }
-#distanceDiv h3 {
+/**
+* #.# Style for distance dropdown.
+*
+*/
+#distance-div h3 {
 	color: orange
 }
 #distance {
 	color: orange;
 	border-color: orange;
 }
-#eventTypes {
+#event-types {
 	color: orange;
 }
