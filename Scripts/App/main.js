@@ -59,7 +59,6 @@ function populateEvents() {
 			'location.latitude': latitude,
 			'location.longitude':longitude,
 			'location.within': distanceSelected+'mi',
-			popular: 'true',
 			'start_date.range_start': nextSat,
 			'start_date.range_end': nextSun
 		};

@@ -20,9 +20,15 @@ Using Crx file:
 
 Instructions to use:
 
+- Enter the location in the location textbox.
 - The popular events happening in that location are displayed below. 
-- The default distance used is 10 miles, it can be selected from the dropdown present.
-- If next weekend check box is selected then the events that happen only on next weekend will be displayed.
+- The default distance used is 10 miles, it can be selected from the dropdown present above.
+
+- If next weekend check box is selected then all the events that happen only on next weekend will be displayed.
+- If next weekend check box is not selected then only the popular events within the selected distance will be displayed.
+
+- No change will happen if there is no location entered in the textbox.
+
 
 Contents:
 main.html - Presentation code.
