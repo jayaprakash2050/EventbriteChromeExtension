@@ -1,7 +1,8 @@
+//This file contains the utility methods and methods needed for Google API
 "use strict";
 //Variable declarations
 var placeSearch, autoComplete;
-var evenBriteToken = "326SDDB4XLUPNNP3NJR4";
+var eventBriteToken = "326SDDB4XLUPNNP3NJR4";
 var daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 var monthNames = 
 ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -56,3 +57,30 @@ function calculateNextWeekend() {
 
 
 
+//Method to call google maps API to fetch the location suggestions for autocomplete.
+//Uses the user's current location, if provided, to set the bounds
+function geolocate() {
+
+	if ( navigator.geolocation ) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+			var geolocation = {
+
+				lat: position.coords.latitude,
+				lng: position.coords.longitude
+			};
+			var circle = new google.maps.Circle({
+				center: geolocation,
+				radius: position.coords.accuracy
+			});
+			autoComplete.setBounds(circle.getBounds());
+		});
+
+	}
+}
+
+//This is the callback method for Google maps API
+function initAutoComplete() {
+	autoComplete = new google.maps.places.Autocomplete(
+		(document.getElementById('location')),{types: ['geocode']});
+	autoComplete.addListener('place_changed', populateEvents);
+}

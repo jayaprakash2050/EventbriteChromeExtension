@@ -1,32 +1,4 @@
 "use strict";
-//Method to call google maps API to fetch the location suggestions for autocomplete.
-//Uses the user's current location, if provided, to set the bounds
-function geolocate() {
-
-	if ( navigator.geolocation ) {
-		navigator.geolocation.getCurrentPosition(function(position) {
-			var geolocation = {
-
-				lat: position.coords.latitude,
-				lng: position.coords.longitude
-			};
-			var circle = new google.maps.Circle({
-				center: geolocation,
-				radius: position.coords.accuracy
-			});
-			autoComplete.setBounds(circle.getBounds());
-		});
-
-	}
-}
-
-//This is the callback method for Google maps API
-function initAutoComplete() {
-	autoComplete = new google.maps.places.Autocomplete(
-		(document.getElementById('location')),{types: ['geocode']});
-	autoComplete.addListener('place_changed', populateEvents);
-}
-
 //Event handler for Next weekend check box.
 //This fetches all events that will happen on next weekend on selection of that checkbox,
 $(document).on("change", "input[id='chknext-weekend']", function () {
@@ -59,10 +31,16 @@ function populateEvents() {
 	//default distance to find events is 10 miles
 	var distanceSelected = 10;	
 	distanceSelected = $("#distance").val();
-	var url = 'https://www.eventbriteapi.com/v3/events/search/?token=' + evenBriteToken + 
-	'&location.latitude=' + encodeURIComponent(latitude) + 
-	'&location.longitude=' + encodeURIComponent(longitude) + 
-	'&location.within=' + encodeURIComponent(distanceSelected) + 'mi&popular=true';
+
+	var urlParam = {
+		token: eventBriteToken,
+		'location.latitude': latitude,
+		'location.longitude':longitude,
+		'location.within': distanceSelected+'mi',
+		popular: 'true'
+	};
+
+	var url = 'https://www.eventbriteapi.com/v3/events/search/?' + $.param(urlParam);
 	var nextSat, nextSun;
 	/*If next weekend filter is selected then we calculate the next weekend dates and add it as 
 	  condition for the Eventbrite API call.
@@ -76,8 +54,16 @@ function populateEvents() {
 		nextSat = nextSat.substring(0,nextSat.lastIndexOf('.'))+'Z';
 		nextSun = nextSun.toJSON();
 		nextSun = nextSun.substring(0,nextSun.lastIndexOf('.'))+'Z';
-		url = url + '&start_date.range_start=' + encodeURIComponent(nextSat) + 
-		'&start_date.range_end=' + encodeURIComponent(nextSun);
+		var urlParams = {
+			token: eventBriteToken,
+			'location.latitude': latitude,
+			'location.longitude':longitude,
+			'location.within': distanceSelected+'mi',
+			popular: 'true',
+			'start_date.range_start': nextSat,
+			'start_date.range_end': nextSun
+		};
+ 		url = 'https://www.eventbriteapi.com/v3/events/search/?' + $.param(urlParams);
 	}
 	//Ajax call for Eventbrite API to fetch the events
 	$.ajax( { 
@@ -119,6 +105,7 @@ function populateEvents() {
 					}
 					eventURL = event.url;
 					startDate = formatDate(startDate);
+					//Create objecy with needed parameters for displaying events
 					var eventObj = {
 						eventurl: eventURL,
 						imageurl: logoURL,
