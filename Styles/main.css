@@ -105,3 +105,6 @@ body {
 #event-types {
 	color: orange;
 }
+#message-div {
+	text-align: center;
+}

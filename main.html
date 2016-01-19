@@ -4,10 +4,12 @@
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 		<meta charset="utf-8" />
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFIy5pNh2q6HDCJYWwKxJXw5EZ6IzKEfk&signed_in=true&libraries=places&callback=initAutoComplete" async defer></script>
-		<script src="jquery-1.12.0.min.js"></script>
-		<script src="spin.min.js"></script>
-		<script src="main.js"></script>
-		<link rel="stylesheet" type="text/css" href="main.css">
+		<script src="/Scripts/Lib/jquery.js"></script>
+		<script src="/Scripts/Lib/jquery_loadTemplate.js"></script>
+		<script src="/Scripts/Lib/spin.min.js"></script>
+		<script src="/Scripts/App/utilities.js"></script>
+		<script src="/Scripts/App/main.js"></script>
+		<link rel="stylesheet" type="text/css" href="/Styles/main.css">
 	</head>
 	<body>
 		<img src = "titleImage.jpg" width = "100%" height = "80px" />
@@ -32,6 +34,9 @@
 			</input>
 		</div>
 		<div id="content-div">
+			<div id="message-div"></div>
+			<ul id = 'event-container' class='event-list'>
+			</ul>
 		</div>
 	</body>
 </html>
