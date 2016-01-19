@@ -75,7 +75,7 @@ function populateEvents() {
 		},
 		error: function(xhr) {
 			spinner.stop();	
-			$("#message-div").html("<h2>Some exception occured.</h2>");
+			$("div#message-div h2").html("Some exception occured.");
 			$("#event-container").empty();
 		}
 	})
@@ -85,9 +85,9 @@ function populateEvents() {
 			spinner.stop();	
 			var eventName, startDate, timeZone, logoURL, eventURL, listItemTemplate;
 			var eventObjList = [];
-			$("#message-div").empty();
+			$("div#message-div h2").empty();
 			if (data.events.length < 1) {
-				$("#message-div").html("<h2>No events found.</h2>");
+				$("div#message-div h2").text("No events found.");
 				$("#event-container").empty();
 			}
 			else {
@@ -118,8 +118,8 @@ function populateEvents() {
 			}
 		})
 		.fail( function() {
-			spinner.stop();	
-			$("#message-div").html("<h2>Some exception occured.</h2>");
+			spinner.stop();
+			$("div#message-div h2").html("Some exception occured.");	
 			$("#event-container").empty();
 		});
 }
