@@ -74,7 +74,7 @@ function populateEvents() {
 		},
 		error: function(xhr) {
 			spinner.stop();	
-			$("div#message-div h2").html("Some exception occured.");
+			$("div#message-div h2").html("Network Error.");
 			$("#event-container").empty();
 		}
 	})
@@ -118,7 +118,7 @@ function populateEvents() {
 		})
 		.fail( function() {
 			spinner.stop();
-			$("div#message-div h2").html("Some exception occured.");	
+			$("div#message-div h2").html("Network Error.");	
 			$("#event-container").empty();
 		});
 }

@@ -4,9 +4,13 @@
   "name": "Eventbrite Extension",
   "description": "This extension asks the location from the user and display popular events pulled from the Eventbrite API",
   "version": "1.0",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png"
+  },
 
   "browser_action": {
-    "default_icon": "icon.png",
+    "default_icon": "icon16.png",
     "default_popup": "main.html"
   },
 
